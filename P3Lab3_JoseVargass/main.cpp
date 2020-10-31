@@ -99,11 +99,13 @@ int** rellenarMatriz(int size){
     temporal = new int*[size];
     for(int i=0; i < size; i++)
         temporal[i] = new int[size];
+        
     for(int i = 0; i< size; i++){
         for(int j = 0; j<size ; j++){
             temporal[i][j] = rand() % 19 - 9;
         }
     }
+    //opcion para revisar con el ejemplo dado
 //    temporal[0][0] = 3; temporal[0][1] = -2; temporal[0][2] = 1;
 //    temporal[1][0] = 5; temporal[1][1] = 6; temporal[1][2] = 2;
 //    temporal[2][0] = 1; temporal[2][1] = 0; temporal[2][2] = -3;
@@ -222,24 +224,23 @@ double cofactor(int** matriz, int i, int j, int size){
 
 int** submatriz(int** matriz,int x, int y, int size){
     int** M = NULL;
-    M = new int*[size-1];
-    for(int i=0; i < size-1; i++){
-        M[i] = new int[size-1];
+    M = new int*[size];
+    for(int i=0; i < size; i++){
+        M[i] = new int[size];
     }
     
-    int minor_row, minor_col;
-    for (int i = 0; i < 3; i++) {
-        minor_row = i;
-        if (i>x)
-            minor_row--;
-        for (int j = 0; j < 3; j++) {
-            minor_col = j;
-            if (j>y)
-                minor_col--;
-            if (i != x && j != y)
-                M[minor_row][minor_col] = matriz[i][j];
-        }
-    }
+    int i = 0, j = 0;
+    for (int fila = 0; fila < size; fila++){ 
+        for (int col = 0; col < size; col++){ 
+            if (fila != x && col != y){ 
+                M[i][j++] = matriz[fila][col]; 
+                if (j == size - 1){ 
+                    j = 0; 
+                    i++; 
+                } 
+            } 
+        } 
+    } 
     return M;
     liberarMatriz(M, size);
 }
